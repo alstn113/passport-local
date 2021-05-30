@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOGIN</title>
+  </head>
+  <body>
+    {% if user and user.id%}
+    <fieldset>
+      <legend>사용자</legend>
+      <div>닉네임 : {{ user.nick }}</div>
+      <a href="/auth/logout" id="logout">로그아웃</a>
+    </fieldset>
+    {% else %}
+    <fieldset>
+      <legend>로그인</legend>
+      <form id="login-form" action="/auth/login" method="post">
+        <div class="input-group">
+          <label for="email">이메일</label>
+          <input id="email" name="email" type="email" required autofocus autocomplete="off" />
+        </div>
+        <div class="input-group">
+          <label for="password">비밀번호</label>
+          <input id="password" name="password" type="password" required />
+        </div>
+        <button id="login" type="submit">로그인</button>
+      </form>
+    </fieldset>
+    {% endif%}
+    <fieldset>
+      <legend>회원가입</legend>
+      <form id="login-form" action="/auth/join" method="post">
+        <div class="input-group">
+          <label for="join-email">이메일</label>
+          <input id="join-email" name="email" type="email" required autofocus autocomplete="off" />
+        </div>
+        <div class="input-group">
+          <label for="join-password">비밀번호</label>
+          <input id="join-password" name="password" type="password" required />
+        </div>
+        <div class="input-group">
+          <label for="join-nick">닉네임</label>
+          <input id="join-nick" name="nick" type="text" required autocomplete="off" />
+        </div>
+        <button id="join" type="submit">회원가입</button>
+      </form>
+    </fieldset>
+  </body>
+</html>
+
+<script>
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get("error")) {
+      alert(new URL(location.href).searchParams.get("error"));
+    }
+  };
+</script>
